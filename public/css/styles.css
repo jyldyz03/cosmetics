@@ -90,3 +90,29 @@ a:hover {
 .list-group-item:hover {
     background-color: #f8f9fa;
 }
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .product-image {
+        max-width: 40%; /* Уменьшенная максимальная ширина изображения */
+        margin: 10px 0; /* Отступы сверху и снизу */
+    }
+
+    .product-info {
+        width: 100%;
+    }
+</style>

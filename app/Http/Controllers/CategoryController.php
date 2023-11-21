@@ -13,10 +13,12 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('categories.index', ['categories' => $categories]);
     }
-     public function showProductsByCategory($categoryId)
+    public function showProductsByCategory($categoryId)
     {
         $category = Category::findOrFail($categoryId);
-        $products = Product::where('category_id', $categoryId)->get();
+        $products = $category->products; //
+        dd($products->count());
+
 
         return view('categories.show', compact('category', 'products'));
     }

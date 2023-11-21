@@ -4,9 +4,9 @@
     <div class="container">
         <h1 class="text-center">{{ $category->name }}</h1>
 
-        @if (isset($products) && $products->isNotEmpty())
+        @if ($category->products->isNotEmpty())
             <ul class="list-group">
-                @foreach ($products as $product)
+                @foreach ($category->products as $product)
                     <li class="list-group-item">
                         <a href="{{ route('products.show', $product->id) }}">
                             {{ $product->name }} - {{ $product->price }}

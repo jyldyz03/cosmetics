@@ -3,9 +3,12 @@
 @section('content')
     <h1 class="text-center">Продукты в выбранной категории</h1>
 
-    @if ($products->isNotEmpty())
+    {{-- Добавим эту строку для отладки --}}
+    @dd($category)
+
+    @if ($category->products->isNotEmpty())
         <ul>
-            @foreach ($products as $product)
+            @foreach ($category->products as $product)
                 <li>
                     <a href="{{ route('products.show', $product->id) }}">
                         {{ $product->name }} - {{ $product->price }}
