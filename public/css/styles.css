@@ -1,12 +1,10 @@
 /* public/css/styles.css */
-
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #f2f2f2;
     margin: 0;
     padding: 0;
 }
-
 header {
     background-color: #343a40;
     color: white;
@@ -14,64 +12,57 @@ header {
     text-align: center;
 }
 
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
 ul {
     list-style-type: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    display: flex;
 }
 
 li {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    padding: 20px;
-    text-align: center;
+    margin-right: 10px;
+}
+
+li:last-child {
+    margin-right: 0;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
     transition: transform 0.3s ease-in-out;
 }
 
-li:hover {
-    transform: scale(1.05);
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-img {
-    max-width: 100px;
-    height: auto;
-    border-radius: 4px;
-}
-h1 {
-    text-align: center;
-}
-h1, h2 {
-    text-align: center;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 20px;
-}
-
-a {
-    text-decoration: none;
-    color: #333;
+a.round-button {
+    border: 2px solid #000000;
+    border-radius: 50%;
+    padding: 10px 15px;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 a:hover {
-    text-decoration: underline;
+    transform: scale(1.1);
 }
 
-/* public/css/styles.css */
+img {
+    max-width: 100%; /* Обновлено для одинаковой ширины блоков продуктов */
+    height: auto;
+    border-radius: 8px;
+}
+
+h1, h2 {
+    text-align: center;
+}
 
 .container {
     max-width: 800px;
@@ -85,34 +76,72 @@ a:hover {
 .list-group-item {
     cursor: pointer;
     transition: background-color 0.3s;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    padding: 20px;
 }
 
 .list-group-item:hover {
     background-color: #f8f9fa;
 }
 
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.product-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-    .product-details {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+.product-button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
 
-    .product-image {
-        max-width: 40%; /* Уменьшенная максимальная ширина изображения */
-        margin: 10px 0; /* Отступы сверху и снизу */
-    }
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 20px;
+    max-height: 350px;
+    object-fit: cover; /* Заполнение изображения в соответствии с размерами блока */
+}
 
-    .product-info {
-        width: 100%;
-    }
-</style>
+.product-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.category-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+    border: none;
+    border-radius: 0;
+    transition: transform 0.3s ease-in-out;
+}
+
+.category-button:hover {
+    transform: scale(1.1);
+}
+.fa-heart {
+    color: red; /* Измените цвет по вашему усмотрению */
+}

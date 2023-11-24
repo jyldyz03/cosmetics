@@ -1,3 +1,5 @@
+<!-- Ваш файл resources/views/categories/index.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
@@ -8,7 +10,7 @@
             <ul class="list-group">
                 @foreach ($categories as $category)
                     <li class="list-group-item">
-                        <a href="{{ route('categories.show', $category->id) }}">
+                        <a class="category-button" href="{{ route('categories.show', $category->id) }}">
                             {{ $category->name }}
                         </a>
                     </li>

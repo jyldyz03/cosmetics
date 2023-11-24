@@ -8,21 +8,53 @@ use App\Models\Category;
 
 class ProductController extends Controller
 {
-public function index()
+    public function index()
     {
         $products = Product::all();
-
         return view('products.index', ['products' => $products]);
     }
-      public function show($id)
+
+    public function show($id)
     {
         $product = Product::findOrFail($id);
-
         return view('products.show', ['product' => $product]);
     }
+    public function search(Request $request)
+{
+    $query = $request->input('query');
+    $encodedQuery = urlencode($query); // Кодирование строки запроса
+
+    // Используйте LIKE для регистронезависимого поиска в MySQL
+    $products = Product::where('name', 'LIKE', '%' . $query . '%')->get();
+
+    return view('products.search', ['products' => $products, 'query' => $encodedQuery]);
+}
+ public function addToFavorites(Product $product)
+{
+    $user = auth()->user();
+
+    // Check if the product is not already in the user's favorites
+    if (!$user->favorites->contains($product->id)) {
+        $user->favorites()->attach($product->id);
+        return redirect()->back()->with('success', 'Product added to favorites!');
+    } else {
+        return redirect()->back()->with('info', 'Product is already in favorites.');
+    }
+}
+
+
+public function removeFromFavorites(Product $product)
+{
+    $user = auth()->user();
+
+    // Detach the product from favorites
+    $user->favorites()->detach($product->id);
+
+    return redirect()->back()->with('success', 'Product removed from favorites!');
+}
 
     public function createProducts()
-{
+    {
     $existingProductsCount = Product::count();
 
     // Проверяем, есть ли уже продукты в базе данных
@@ -86,7 +118,7 @@ public function index()
                         'brand' => 'Glam Night',
                         'stock_quantity' => 90,
                         'image_path' => 'images/products/eyes-shadow-Glam-Night.jpg',
-                        'category_id' => 14,
+                        'category_id' => $category->id,
                     ],
 
             ];

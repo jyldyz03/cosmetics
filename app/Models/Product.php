@@ -19,5 +19,13 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+     public function favorites(): HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_favorite_products');
+    }
 }
 
