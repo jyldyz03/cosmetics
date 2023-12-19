@@ -34,6 +34,7 @@ class CategoryController extends Controller
             ['name' => 'Помады', 'description' => 'Категория для помад'],
             ['name' => 'Крема', 'description' => 'Категория для кремов'],
             ['name' => 'Тени', 'description' => 'Категория для теней'],
+            ['name' => 'Тушь', 'description' => 'Категория для туши'],
         ];
 
         foreach ($categoriesData as $data) {

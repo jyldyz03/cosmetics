@@ -1,10 +1,12 @@
 /* public/css/styles.css */
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
 }
+
 header {
     background-color: #343a40;
     color: white;
@@ -55,7 +57,7 @@ a:hover {
 }
 
 img {
-    max-width: 100%; /* Обновлено для одинаковой ширины блоков продуктов */
+    max-width: 100%;
     height: auto;
     border-radius: 8px;
 }
@@ -88,6 +90,39 @@ h1, h2 {
     background-color: #f8f9fa;
 }
 
+.card {
+    width: 100%;
+    height: 385px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    width: 89%;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 1px;
+}
+
+.product-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+}
+
+.product-description {
+    flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+.product-price {
+    margin-bottom: 10px;
+}
+
 .product-button {
     background-color: #ffffff;
     color: #000000;
@@ -98,7 +133,6 @@ h1, h2 {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 10px 0;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -115,7 +149,7 @@ h1, h2 {
     transition: transform 0.3s ease-in-out;
     margin-bottom: 20px;
     max-height: 350px;
-    object-fit: cover; /* Заполнение изображения в соответствии с размерами блока */
+    object-fit: cover;
 }
 
 .product-details {
@@ -142,6 +176,159 @@ h1, h2 {
 .category-button:hover {
     transform: scale(1.1);
 }
+
 .fa-heart {
-    color: red; /* Измените цвет по вашему усмотрению */
+    color: red;
+}
+
+.favorite-button i.fa-heart:before {
+    content: "\2665";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-size: 24px;
+    color: red;
+}
+
+.favorite-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.favorite-button:hover {
+    color: darkred;
+}
+
+/* Стили для таблицы в корзине */
+.table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #343a40;
+    color: white;
+}
+
+.table td {
+    background-color: #ffffff;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+.payment-form {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.payment-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.payment-form button {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.payment-form button:hover {
+    background-color: #333;
+}
+
+.payment-form .error-message {
+    color: red;
+    margin-top: 5px;
+}
+
+.payment-form .success-message {
+    color: green;
+    margin-top: 5px;
+}
+.custom-card {
+    min-height: 650px; /* Adjust the value as needed */
+}
+.cart-container {
+    margin-top: 20px;
+}
+
+.cart-table th,
+.cart-table td {
+    text-align: center;
+}
+
+.cart-table img {
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.cart-total {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.cart-total h4 {
+    font-weight: bold;
+}
+
+.cart-total h4.total-quantity {
+    margin-bottom: 25px;
+}
+
+.cart-total h4.total-payment {
+    color: #ff0000; /* красный цвет */
+}
+.custom-tall-card {
+    height: 100%;
+}
+.accept-order:active {
+    background-color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+.support-contact {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.support-contact p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.support-contact a {
+    color: #007bff;
+    text-decoration: none;
 }

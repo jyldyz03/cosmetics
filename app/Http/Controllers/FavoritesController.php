@@ -11,14 +11,14 @@ class FavoritesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   public function index()
-{
-    // Logic for retrieving user's favorites
-    $products = auth()->user()->favorites; // Assuming you have a relationship set up
+    public function index()
+    {
+        // Получаем текущего пользователя
+        $user = auth()->user();
 
-    return view('favorites.index', ['products' => $products]);
+        // Получаем избранные продукты для текущего пользователя
+        $products = $user->favorites;
+
+        return view('favorites.index', ['products' => $products]);
+    }
 }
-}
-
-
-

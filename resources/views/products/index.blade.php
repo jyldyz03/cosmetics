@@ -39,8 +39,8 @@
                                             {{-- Add to Favorites button with heart icon --}}
                                             <form action="{{ route('products.addToFavorites', $product->id) }}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-outline-danger ml-2">
-                                                    <i class="fas fa-heart"></i>
+                                                <button type="submit" class="btn btn-sm btn-outline-danger ml-2 favorite-button">
+                                                    <i class="fas fa-heart"></i> <!-- оставьте эту часть, если у вас есть соответствующая икона -->
                                                 </button>
                                             </form>
                                         @endauth

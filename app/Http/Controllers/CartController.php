@@ -5,77 +5,115 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class CartController extends Controller
 {
+    public function checkout(Request $request)
+    {
+        $user = auth()->user();
+
+        // Создаем новый заказ
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->total_amount = $request->input('totalAmount');
+        $order->save();
+
+        // Получаем товары из корзины пользователя
+        $cartItems = $user->cart->products;
+
+        // Добавляем товары из корзины в заказ
+        foreach ($cartItems as $cartItem) {
+            $orderItem = new OrderItem([
+                'product_id' => $cartItem->id,
+                'quantity' => $cartItem->pivot->quantity,
+                'price' => $cartItem->price,
+            ]);
+            $order->items()->save($orderItem);
+        }
+
+        // Очищаем корзину пользователя
+        $user->cart->products()->detach();
+
+        // Редиректим на страницу с подтверждением заказа или куда вам нужно
+        return redirect()->route('checkout.success', ['order_id' => $order->id]);
+    }
+
     public function index()
     {
         $user = auth()->user();
-        $cart = $user->cart;
 
-        return view('cart.index', compact('cart'));
+        // Проверяем, аутентифицирован ли пользователь
+        if ($user) {
+            // Используем метод firstOrCreate для создания или получения корзины пользователя
+            $cart = Cart::firstOrCreate(['user_id' => $user->id]);
+
+            // Загружаем связанные продукты
+            $cart->load('products');
+
+            return view('cart.index', compact('cart'));
+        } else {
+            // Действие в случае, если пользователь не аутентифицирован
+            return redirect()->route('login')->with('warning', 'Please log in to view your cart.');
+        }
     }
 
     public function addProduct(Product $product)
     {
         $user = auth()->user();
-        $cart = $user->cart;
 
-        // Проверка наличия корзины пользователя
-        if (!$cart) {
-            // Если нет, создаем новую корзину
-            $cart = new Cart();
-            $cart->user_id = $user->id;
-            $cart->save();
-        }
+        // Получаем существующую корзину пользователя или создаем новую
+        $cart = Cart::firstOrCreate(['user_id' => $user->id]);
 
-        // Проверка, что продукт не был добавлен ранее
-        if (!$cart->products->contains($product->id)) {
-            // Привязываем продукт к корзине
-            $cart->products()->attach($product->id, ['quantity' => 1]);
+        // Используем метод toggle для упрощения добавления/удаления продукта
+        $cart->products()->toggle($product->id);
 
-            return redirect()->back()->with('success', 'Product added to cart.');
-        }
-
-        return redirect()->back()->with('warning', 'Product is already in the cart.');
+        return redirect()->back()->with('success', 'Product updated in the cart.');
     }
 
     public function removeProduct(Product $product)
-    {
-        $user = auth()->user();
-        $cart = $user->cart;
+{
+    $user = auth()->user();
 
-        // Проверка, что продукт присутствует в корзине
-        if ($cart->products->contains($product->id)) {
-            // Удаляем продукт из корзины
-            $cart->products()->detach($product->id);
+    // Получаем существующую корзину пользователя или создаем новую
+    $cart = Cart::firstOrCreate(['user_id' => $user->id]);
 
-            return redirect()->back()->with('success', 'Product removed from cart.');
-        }
+    // Используем метод detach для удаления продукта из корзины
+    $cart->products()->detach($product->id);
 
-        return redirect()->back()->with('warning', 'Product not found in the cart.');
-    }
+    // Перезагружаем связанные продукты
+    $cart->load('products');
+
+    return redirect()->back()->with('success', 'Product removed from the cart.');
+}
+
 
     public function updateQuantity(Request $request, Product $product)
-    {
-        $user = auth()->user();
-        $cart = $user->cart;
+{
+    $user = auth()->user();
 
-        // Проверка, что продукт присутствует в корзине
-        if ($cart->products->contains($product->id)) {
-            $quantity = $request->input('quantity', 1);
+    // Получаем существующую корзину пользователя или создаем новую
+    $cart = Cart::firstOrCreate(['user_id' => $user->id]);
 
-            // Проверка наличия положительного количества
-            if ($quantity > 0) {
-                // Обновляем количество продукта в корзине
-                $cart->products()->updateExistingPivot($product->id, ['quantity' => $quantity]);
+    // Загружаем связанные продукты
+    $cart->load('products');
 
-                return redirect()->back()->with('success', 'Cart updated.');
-            }
+    // Получаем продукт из корзины
+    $cartProduct = $cart->products->find($product->id);
 
-            return redirect()->back()->with('error', 'Invalid quantity.');
-        }
+    if ($cartProduct) {
+        // Обновляем количество продукта в корзине
+        $quantity = $request->input('quantity', 1);
 
-        return redirect()->back()->with('warning', 'Product not found in the cart.');
+        // Обновляем количество напрямую через отношение
+        $cartProduct->pivot->quantity = max(1, $quantity);
+        $cartProduct->pivot->save();
+
+        return redirect()->back()->with('success', 'Cart updated.');
     }
+
+    return redirect()->back()->with('warning', 'Product not found in the cart.');
+}
+
 }

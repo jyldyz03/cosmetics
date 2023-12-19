@@ -2,7 +2,6 @@
 
 // app/Models/Product.php
 
-// Product.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -19,13 +18,25 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
-     public function favorites(): HasMany
+
+    public function favorites(): HasMany
     {
-        return $this->hasMany(Favorite::class);
+     return $this->hasMany(UserFavoriteProduct::class);
     }
-    public function users(): BelongsToMany
+
+
+    public function users()
     {
         return $this->belongsToMany(User::class, 'user_favorite_products');
     }
-}
 
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class)->withPivot('quantity');
+    }
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)
+            ->withPivot('quantity', 'price');
+    }
+}
