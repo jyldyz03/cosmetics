@@ -7,9 +7,9 @@
         <!-- Добавляем изображение продукта с размерами и отступами -->
         <img class="product-image" src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}">
 
-        <!-- Добавляем цену и описание продукта снизу фотографии -->
+        <!-- Добавляем цену и описание продукта с учетом скидок и купонов -->
         <div class="product-info">
-            <p><strong>Цена:</strong> {{ $product->price }}</p>
+            <p><strong>Цена:</strong> {{ formatPrice($product->getDiscountedPrice()) }}</p>
             <p>{{ $product->description }}</p>
         </div>
     </div>

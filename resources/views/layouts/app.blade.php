@@ -25,49 +25,46 @@
 <body class="font-sans antialiased">
     <div>
         <!-- Навигационное меню с текстом службы поддержки -->
-        <nav>
-            <ul>
-                <!-- Служба поддержки и номер -->
-                <li class="support-contact">Служба поддержки: +996559333693</li>
-
-                <li><a href="/" class="round-button">Laravel</a></li>
-                <li><a href="{{ route('categories.index') }}" class="round-button">Категории</a></li>
-                <li><a href="{{ route('products.index') }}" class="round-button">Главная</a></li>
-                <!-- Пример добавления кнопки "Избранное" для авторизованных пользователей -->
-                @auth
-                    <li><a href="{{ route('favorites') }}" class="round-button">Избранное</a></li>
-                @endauth
-                <!-- Пример добавления кнопки "Корзина" -->
-                <li><a href="{{ route('cart.index') }}" class="round-button">Корзина</a></li>
-                <!-- Пример добавления кнопки "Профиль" для авторизованных пользователей -->
-                @auth
-                    <li><a href="{{ route('profile.index') }}" class="round-button">Профиль</a></li>
-                @endauth
-                <!-- Пример добавления кнопки "Войти" для гостей -->
-                @guest
-                    <li><a href="{{ route('login') }}" class="round-button">Войти</a></li>
-                @endguest
-                <!-- Пример добавления кнопки "Выйти" для авторизованных пользователей -->
-                @auth
-                    <li>
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button type="submit" class="round-button">Выйти</button>
-                        </form>
-                    </li>
-                @endauth
-            </ul>
-        </nav>
-
-        <!-- Основной контент -->
-        <main>
-            @yield('content')
-        </main>
-
-        <!-- Футер и другие общие элементы -->
-        <footer>
-            <!-- Ваш контент для футера, например, авторские права, ссылки и т. д. -->
-        </footer>
+<nav>
+    <ul>
+        <li><a href="/" class="round-button">Laravel</a></li>
+        <li><a href="{{ route('categories.index') }}" class="round-button">Категории</a></li>
+        <li><a href="{{ route('products.index') }}" class="round-button">Главная</a></li>
+        @auth
+            <li><a href="{{ route('favorites') }}" class="round-button">Избранное</a></li>
+        @endauth
+        <!-- Пример добавления кнопки "Корзина" -->
+        <li><a href="{{ route('cart.index') }}" class="round-button">Корзина</a></li>
+        <!-- Пример добавления кнопки "Профиль" для авторизованных пользователей -->
+        @auth
+            <li><a href="{{ route('profile.index') }}" class="round-button">Профиль</a></li>
+        @endauth
+        <!-- Добавляем кнопку "Служба поддержки" -->
+        <li><a href="{{ route('support.index') }}" class="round-button">Поддержка</a></li>
+        <!-- Пример добавления кнопки "Войти" для гостей -->
+        @guest
+            <li><a href="{{ route('login') }}" class="round-button">Войти</a></li>
+        @endguest
+        <!-- Пример добавления кнопки "Выйти" для авторизованных пользователей -->
+        @auth
+            <li>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="round-button">Выйти</button>
+                </form>
+            </li>
+        @endauth
+    </ul>
+</nav>
     </div>
+
+    <!-- Основной контент -->
+    <main>
+        @yield('content')
+    </main>
+
+    <!-- Футер и другие общие элементы -->
+    <footer>
+        <!-- Ваш контент для футера, например, авторские права, ссылки и т. д. -->
+    </footer>
 </body>
-</html>

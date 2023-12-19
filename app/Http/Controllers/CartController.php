@@ -30,6 +30,10 @@ class CartController extends Controller
                 'quantity' => $cartItem->pivot->quantity,
                 'price' => $cartItem->price,
             ]);
+             // Получаем связанные скидки и применяем их к цене продукта
+    foreach ($cartItem->discounts as $discount) {
+        $orderItem->price -= ($orderItem->price * $discount->discount_percent) / 100;
+    }
             $order->items()->save($orderItem);
         }
 

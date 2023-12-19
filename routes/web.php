@@ -14,6 +14,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CourierController;
+use App\Http\Controllers\SupportTicketController;
 
 
 
@@ -100,4 +101,10 @@ Route::patch('/courier/complete-order/{order}', [CourierController::class, 'comp
 
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 
+
+Route::get('/support', [SupportTicketController::class, 'index'])->name('support.index');
+Route::get('/support/create', [SupportTicketController::class, 'create'])->name('support.create');
+Route::post('/support/store', [SupportTicketController::class, 'store'])->name('support.store');
+Route::get('/support/{ticket}', [SupportTicketController::class, 'show'])->name('support.show');
+Route::put('/support/{ticket}/close', [SupportTicketController::class, 'closeTicket'])->name('support.close');
 

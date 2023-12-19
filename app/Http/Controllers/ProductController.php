@@ -248,13 +248,18 @@ class ProductController extends Controller
                           'image_path' => 'storage/images/products/dramaticvolume.jpg',
                        ],
                   ];
+                  $discount1 = Discount::find(1); // Предположим, что у вас есть скидка с ID 1
+                  $discount2 = Discount::find(2); // Предположим, что у вас есть скидка с ID 2
 
-            foreach ($productsData as $productData) {
-            $productData['category_id'] = $category->id;
-            $product = Product::create($productData);
-            echo "Product {$product->name} created with category_id: {$product->category_id}\n";
-        }
-     }
+                  foreach ($productsData as $productData) {
+                     $productData['category_id'] = $category->id;
+                    // Создание продукта
+                     $product = Product::create($productData);
+                    // Связывание продукта с скидками
+                     $product->discounts()->attach([$discount1->id, $discount2->id]);
+                     echo "Product {$product->name} created with category_id: {$product->category_id}\n";
+                 }
+             }
           return "Косметические продукты созданы и сохранены в базе данных.";
       }
         return "Продукты уже существуют в базе данных.";
